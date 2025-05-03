@@ -379,3 +379,29 @@ exports.handler = async (event) => {
     await connection.end();
   }
 };
+const supabase = supabase.createClient(
+    'https://irqmpbgjkchtllwkwlrd.supabase.co',
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlycW1wYmdqa2NodGxsd2t3bHJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyMzY5MzQsImV4cCI6MjA2MTgxMjkzNH0.3k7tngLIjtca1zKKw6bdPLqGSRPOIqsChdrYD28z3KA'
+  );
+
+  async function agregarEvento(nombre, fecha, descripcion) {
+    const { data, error } = await supabase
+      .from('eventos')
+      .insert([{ nombre, fecha, descripcion }]);
+
+    if (error) {
+      console.error('Error:', error.message);
+      alert('Error al agregar evento');
+    } else {
+      alert('Evento agregado con éxito');
+    }
+  }
+
+  // Ejemplo con formulario
+  document.querySelector("#form-evento").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const nombre = e.target.nombre.value;
+    const fecha = e.target.fecha.value;
+    const descripcion = e.target.descripcion.value;
+    agregarEvento(nombre, fecha, descripcion);
+  });
