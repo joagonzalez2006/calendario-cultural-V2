@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventos de la Ciudad</title>
+  <link rel="stylesheet" href="eventos_ciudad.css">
+</head>
+<body>
+  
+  <h1>Agenda Cultural de la Ciudad</h1>
+  <div id="mainContainer">
+      <div>
+        <h2>Calendario de Eventos</h2>
+        <div id="calendar"></div> 
+      </div>
+      <div>
+          <h2>Agregar Nuevo Evento</h2> 
+          <form id="eventForm">
+              <input type="text" id="eventName" name="titulo" placeholder="Nombre del Evento" required><br>
+              <input type="date" id="eventDate" name="fecha" required><br>
+              <input type="time" id="eventTime" name="hora" required><br>
+              <input type="text" id="eventPlace" name="lugar" placeholder="Lugar" required><br>
+              <textarea id="eventDescription" name="descripcion" placeholder="Descripción" required></textarea><br>
+              <button type="submit">Agregar Evento</button>
+          </form>
+      </div>
+  </div>
+  <div id="events" class="events"></div>
+  <div id="eventsList"></div>
+  
+  <!-- Fondo oscuro para el modal -->
+  <div id="overlay"></div>
+
+  <!-- Cuadro de Pago -->
+  <div id="paymentModal">
+      <h2>Detalles de Pago</h2>
+      <form id="paymentForm"> 
+        <input type="text" id="cardHolder" placeholder="Nombre y Apellido del Titular" required><br>
+        <input type="email" id="gmail" placeholder="Gmail" required><br>
+        <input type="text" id="cardNumber" placeholder="Número de Tarjeta" maxlength="16" required pattern="\d{16}"><br>
+        <input type="text" id="cardCode" placeholder="Código de Tarjeta" maxlength="3" required pattern="\d{3}"><br>
+        <input type="text" id="expiryDate" placeholder="MM/AA" required pattern="^(0[1-9]|1[0-2])\/\d{2}$" maxlength="5" oninput="formatExpiryDate(this)" title="Formato: MM/AA">
+       
+        <div>
+            <span>Monto a Pagar: $5.00</span>
+            <button type="submit">Pagar</button>
+        </div>
+        <h6>Al eliminar un evento el pago no se rembolsará</h6>
+      </form>
+      <button type="button" onclick="cancelPayment()">Cancelar</button>
+  </div>
+
+  <script src="eventos_ciudad.js"></script>
+</body>
+</html>
