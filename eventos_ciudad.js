@@ -384,10 +384,10 @@ const supabase = supabase.createClient(
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImlycW1wYmdqa2NodGxsd2t3bHJkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyMzY5MzQsImV4cCI6MjA2MTgxMjkzNH0.3k7tngLIjtca1zKKw6bdPLqGSRPOIqsChdrYD28z3KA'
   );
 
-  async function agregarEvento(nombre, fecha, descripcion) {
+  async function agregarEvento(nombre, fecha, hora, lugar, descripcion) {
     const { data, error } = await supabase
       .from('eventos')
-      .insert([{ nombre, fecha, descripcion }]);
+      .insert([{ nombre, fecha, hora, lugar, descripcion }]);
 
     if (error) {
       console.error('Error:', error.message);
@@ -402,6 +402,8 @@ const supabase = supabase.createClient(
     e.preventDefault();
     const nombre = e.target.nombre.value;
     const fecha = e.target.fecha.value;
+    const hora = e.target.hora.value;
+    const lugar = e.target.lugar.value;
     const descripcion = e.target.descripcion.value;
-    agregarEvento(nombre, fecha, descripcion);
+    agregarEvento(nombre, fecha, hora, lugar, descripcion);
   });
