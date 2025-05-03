@@ -349,3 +349,33 @@ function cancelPayment() {
     // Limpiar el formulario de pago
     document.getElementById('paymentForm').reset();
 }
+const mysql = require('mysql2/promise');
+
+exports.handler = async (event) => {
+  const connection = await mysql.createConnection({
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+  });
+
+  const { nombre, fecha, descripcion } = JSON.parse(event.body);
+
+  try {
+    await connection.execute(
+      'INSERT INTO eventos (nombre, fecha, descripcion) VALUES (?, ?, ?)',
+      [nombre, fecha, descripcion]
+    );
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ mensaje: 'Evento agregado exitosamente' }),
+    };
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Error al agregar el evento', detalles: error.message }),
+    };
+  } finally {
+    await connection.end();
+  }
+};
